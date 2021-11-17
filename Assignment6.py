@@ -8,6 +8,7 @@ Assignment 6, Node-Based Group-Wise Semantic Similarity Measure
 from datetime import datetime
 from os import name
 import sys
+import matplotlib.pyplot as plt
 
 
 
@@ -310,7 +311,7 @@ def GetSimilarity(gene1_ancestor, gene2_ancestor):
     inter_set = gene1_ancestor.intersection(gene2_ancestor)
     # print("union : ",union_set)
     # print("inter : ",inter_set)
-    return round(float(len(inter_set)) / float(len(union_set)), 1)
+    return float(len(inter_set)) / float(len(union_set))
 
 
 def output_to_file(filename,gene_sim):
@@ -430,8 +431,11 @@ def main():
     similarity = [0 for i in range(11)]
     for v in gene_sim:
         #*print(int(v[2]*10), v)
-        similarity[int(v[2]*10)] += 1
+        #similarity[int(v[2]*10)] += 1
+        similarity.append(v[2])
     print("Similarity 0.0 ~ 1.0 : ",similarity)
+    plt.hist(similarity)
+    plt.show()
     print("[+] Time Elapsed : ", datetime.now() - start_time, "microseconds")
     output_to_file(output_filename,gene_sim)
 
